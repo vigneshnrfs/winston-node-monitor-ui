@@ -21,6 +21,7 @@ var Logger = winston.transports.NodeMonitorUI = function ({level = 'info', port 
   //
 
   this.port = port;
+  this.host = host;
   this._state = 'NOT_INITIALIZED';
   this.socket = undefined;
   this._queue = [];
@@ -63,7 +64,7 @@ Logger.prototype._connect = function () {
 
   this._state = 'INITIALIZING';
 
-  this.socket = io(`${host}:${port}`);
+  this.socket = io(`${this.host}:${this.port}`);
 
   this.socket.on('connect', ()=> {
     this._state = 'connected';
