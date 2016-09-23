@@ -3,13 +3,14 @@
 
 var util = require('util'),
   winston = require('winston'),
-  io = require('socket.io-client');
+  io = require('socket.io-client'),
+  timestamp = require('monotonic-timestamp');
 
 var Logger = winston.transports.NodeMonitorUI = function ({level = 'info', port = 3001, host = 'localhost'}) {
   //
   // Name this logger
   //
-  this.name = 'NodeMonitorUILogger';
+  this.name = 'NodeMonitorUI';
 
   //
   // Set the level from your options
@@ -33,7 +34,8 @@ var Logger = winston.transports.NodeMonitorUI = function ({level = 'info', port 
       level: level,
       msg: msg,
       meta: meta,
-      timestamp: new Date()
+      timestamp: timestamp(),
+      pid: process.pid
     };
   };
 
@@ -46,12 +48,6 @@ var Logger = winston.transports.NodeMonitorUI = function ({level = 'info', port 
 util.inherits(Logger, winston.Transport);
 
 Logger.prototype.log = function (level, msg, meta, callback) {
-  //
-  // Store this message and metadata, maybe use some custom logic
-  // then callback indicating success.
-  //
-  console.log('--->', level, msg, meta);
-
 
   if (this._state === 'connected') this.socket.emit('logs', this.formatLog(level, msg, meta));
   else if (this._state === 'NOT_INITIALIZED') this._connect();
@@ -64,14 +60,14 @@ Logger.prototype._connect = function () {
 
   this._state = 'INITIALIZING';
 
-  this.socket = io(`${this.host}:${this.port}`);
+  this.socket = io(`http://${this.host}:${this.port}`);
 
   this.socket.on('connect', ()=> {
     this._state = 'connected';
     this._flushQueue();
   });
 
-  this.socket.on('reconnect_error', () => {
+  this.socket.on('reconnect_error', (err) => {
     this._state = 'error';
   });
 
@@ -82,7 +78,11 @@ Logger.prototype._connect = function () {
   this.socket.on('reconnect', () => {
     this._state = 'connected';
     this._flushQueue();
-  })
+  });
+
+  this.socket.on('disconnect', ()=>{
+    this._state ='disconnected';
+  });
 
 };
 
