@@ -4,7 +4,19 @@
   "description": "Winston transport to stream logs to node-monitor-ui",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "jshint index.js test.js",
+    "test": "DEBUG=winston-node-monitor-ui mocha test.js",
+    "cover": "nyc --reporter=html --reporter=text  mocha test.js",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "index.js"
+    ],
+    "exclude": [
+      "test.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,8 +36,19 @@
   },
   "homepage": "https://github.com/vigneshnrfs/winston-node-monitor-ui#readme",
   "dependencies": {
+    "chai": "^4.1.2",
+    "debug": "^3.1.0",
+    "jshint": "^2.9.5",
     "monotonic-timestamp": "0.0.9",
+    "nyc": "^11.7.3",
     "socket.io-client": "^1.4.8",
-    "winston": "^2.2.0"
+    "winston": "^2.4.2"
+  },
+  "devDependencies": {
+    "mocha": "^5.1.1",
+    "socket.io": "^2.1.0"
+  },
+  "peerDependencies": {
+    "winston": "^2.0.0"
   }
 }

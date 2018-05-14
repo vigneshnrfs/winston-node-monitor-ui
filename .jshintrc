@@ -1,0 +1,20 @@
+{
+  "boss": true,
+  "curly": false,
+  "devel": false,
+  "eqeqeq": true,
+  "eqnull": true,
+  "esversion": 6,
+  "expr": true,
+  "immed": true,
+  "mocha": true,
+  "noarg": true,
+  "node": true,
+  "node": true,
+  "onevar": true,
+  "quotmark": "single",
+  "smarttabs": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true
+}
