@@ -36,19 +36,19 @@
   },
   "homepage": "https://github.com/vigneshnrfs/winston-node-monitor-ui#readme",
   "dependencies": {
-    "chai": "^4.1.2",
     "debug": "^3.1.0",
-    "jshint": "^2.9.5",
     "monotonic-timestamp": "0.0.9",
-    "nyc": "^11.7.3",
     "socket.io-client": "^2.1.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "jshint": "^2.9.5",
     "mocha": "^5.1.1",
+    "nyc": "^11.7.3",
     "socket.io": "^2.1.0",
-    "winston": "^2.4.2"
+    "winston": "^3.0.0-rc5"
   },
   "peerDependencies": {
-    "winston": "^2.0.0"
+    "winston": "^3.0.0"
   }
 }
