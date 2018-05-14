@@ -41,12 +41,12 @@
     "jshint": "^2.9.5",
     "monotonic-timestamp": "0.0.9",
     "nyc": "^11.7.3",
-    "socket.io-client": "^2.1.0",
-    "winston": "^2.4.2"
+    "socket.io-client": "^2.1.0"
   },
   "devDependencies": {
     "mocha": "^5.1.1",
-    "socket.io": "^2.1.0"
+    "socket.io": "^2.1.0",
+    "winston": "^2.4.2"
   },
   "peerDependencies": {
     "winston": "^2.0.0"
